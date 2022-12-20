@@ -1,7 +1,13 @@
 const allLayers = figma.currentPage.findAll();
 const layersNumber = allLayers.length;
 
-if (layersNumber !== 0) {
+console.log(layersNumber)
+
+if (layersNumber === 0) {
+  figma.notify('Nothing to rename');
+} else if (layersNumber > 10000) {
+  figma.notify('It is too big file');
+} else {
   allLayers.forEach(
     (layer, index) => (layer.name = `${index}_${layer.type.toLowerCase()}`)
   );
@@ -11,7 +17,5 @@ if (layersNumber !== 0) {
       : `Done! ${layersNumber} element was renamed`
   );
 }
-
-figma.notify('Nothing to rename');
 
 figma.closePlugin();
